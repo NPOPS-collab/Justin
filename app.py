@@ -135,3 +135,7 @@ with tab1:
 
 with tab2:
     st.bar_chart({"기본시간(보간)": base_time, "가감후": step3_time, "최종시간": final_time})
+
+git add .
+git commit -m "표준감사시간 조견표 보간법 및 UI 고도화 반영"
+git push origin main
