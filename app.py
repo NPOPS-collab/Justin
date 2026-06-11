@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+# ==========================================
 # 페이지 기본 설정
+# ==========================================
 st.set_page_config(page_title="표준감사시간 산정 프로그램", layout="wide")
 
 st.title("📊 표준감사시간 산정 자동화 (RPA)")
@@ -10,7 +12,7 @@ st.markdown("---")
 # ==========================================
 # [데이터 정의] 실제 KICPA 조견표 데이터 세팅 (예시: 그룹4 제조업 중규모)
 # ==========================================
-# 실제 고시된 그룹별 구간 데이터를 아래와 같이 DataFrame으로 관리합니다.
+# 실제 고시된 그룹별 구간 데이터를 DataFrame으로 관리합니다.
 group4_table = pd.DataFrame([
     {"min_scale": 0, "max_scale": 50000000000, "min_time": 300, "max_time": 500},          # ~500억
     {"min_scale": 50000000000, "max_scale": 100000000000, "min_time": 500, "max_time": 800},   # 500억~1000억
@@ -61,8 +63,8 @@ group_name = "그룹4 (제조업 중규모)"
 base_time = 0.0
 matched_bracket = None
 
-# 입력된 규모가 속한 구간 찾기
-for idx, row in group_table.iterrows():
+# 입력된 규모가 속한 구간 찾기 (오류 수정됨: group4_table 적용)
+for idx, row in group4_table.iterrows():
     if row['min_scale'] <= scale_amount < row['max_scale']:
         matched_bracket = row
         break
@@ -135,7 +137,3 @@ with tab1:
 
 with tab2:
     st.bar_chart({"기본시간(보간)": base_time, "가감후": step3_time, "최종시간": final_time})
-
-git add .
-git commit -m "표준감사시간 조견표 보간법 및 UI 고도화 반영"
-git push origin main
